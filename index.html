@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TecnoRevivir – Revista Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00c87a;
+    --green-dark: #00874f;
+    --teal: #00b5a3;
+    --black: #0b0f0e;
+    --off-white: #f0f5f2;
+    --gray: #9bada6;
+    --accent: #d4ff5e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--black);
+    color: var(--off-white);
+    overflow-x: hidden;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-left {
+    background: var(--green);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 50px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover-left::after {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: 0;
+    width: 160px;
+    height: 100%;
+    background: var(--green);
+    clip-path: polygon(0 0, 0% 100%, 100% 100%);
+    z-index: 1;
+  }
+
+  .sena-badge {
+    display: inline-block;
+    background: var(--black);
+    color: var(--accent);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 3px;
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    width: fit-content;
+  }
+
+  .cover-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 0.9;
+    color: var(--black);
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+  }
+
+  .cover-title span { color: var(--off-white); display: block; }
+
+  .cover-tagline {
+    font-size: 18px;
+    color: var(--black);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+
+  .cover-issue {
+    font-size: 12px;
+    color: rgba(0,0,0,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .cover-right {
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 60px 50px 60px 90px;
+    position: relative;
+  }
+
+  .cover-illustration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 340px;
+    opacity: 0.08;
+  }
+
+  .big-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 280px;
+    line-height: 1;
+    color: var(--green);
+    opacity: 0.12;
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    user-select: none;
+  }
+
+  .cover-team {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cover-team h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 3px;
+    font-size: 13px;
+    color: var(--green);
+    margin-bottom: 16px;
+  }
+
+  .team-member {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .team-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .team-name {
+    font-size: 14px;
+    color: var(--off-white);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .instructor-line {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .instructor-line strong {
+    color: var(--teal);
+    display: block;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  /* ── SCROLL HINT ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .scroll-hint span { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.4); }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--green), transparent);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11,15,14,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,200,122,0.2);
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--green);
+    letter-spacing: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gray);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 50px; max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--green);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: var(--off-white);
+  }
+
+  .section-title em { color: var(--green); font-style: italic; }
+
+  p { line-height: 1.85; color: #b0c4bc; font-size: 16px; }
+
+  /* ── ABSTRACT BAND ── */
+  .abstract-band {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--teal) 100%);
+    padding: 80px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .abstract-band::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 400px;
+    line-height: 1;
+    position: absolute;
+    top: -80px;
+    left: 30px;
+    color: rgba(255,255,255,0.06);
+    font-style: italic;
+  }
+
+  .abstract-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .abstract-inner p {
+    font-size: 22px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  /* ── OBJECTIVES ── */
+  .objectives-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+  }
+
+  .obj-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(0,200,122,0.15);
+    border-radius: 4px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .obj-card:hover {
+    border-color: var(--green);
+    transform: translateY(-4px);
+  }
+
+  .obj-card::before {
+    content: attr(data-num);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    position: absolute;
+    right: 20px;
+    bottom: -10px;
+    color: rgba(0,200,122,0.07);
+    line-height: 1;
+  }
+
+  .obj-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .obj-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--off-white);
+  }
+
+  .obj-card p { font-size: 14px; }
+
+  /* ── METHODOLOGY ── */
+  .method-bg {
+    background: rgba(0,200,122,0.04);
+    border-top: 1px solid rgba(0,200,122,0.1);
+    border-bottom: 1px solid rgba(0,200,122,0.1);
+  }
+
+  .steps-flow {
+    display: flex;
+    gap: 0;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+
+  .step {
+    flex: 1;
+    min-width: 130px;
+    position: relative;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--green);
+    font-size: 22px;
+    z-index: 2;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 8px;
+    opacity: 0.4;
+  }
+
+  .step-icon { font-size: 32px; margin-bottom: 10px; }
+
+  .step h5 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--off-white);
+    margin-bottom: 6px;
+  }
+
+  .step p { font-size: 12px; color: var(--gray); }
+
+  /* ── MARCO TEORICO ── */
+  .theory-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .theory-item {
+    padding: 28px;
+    border-left: 3px solid var(--green);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .theory-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--off-white);
+  }
+
+  .theory-item p { font-size: 14px; }
+
+  /* ── PROCEDURE TABLE ── */
+  .table-wrap {
+    margin-top: 50px;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead tr {
+    background: var(--green);
+    color: var(--black);
+  }
+
+  thead th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 700;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    font-size: 15px;
+  }
+
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+  tbody tr:hover { background: rgba(0,200,122,0.05); }
+
+  tbody td {
+    padding: 14px 20px;
+    color: #b0c4bc;
+    line-height: 1.5;
+  }
+
+  tbody td:first-child { color: var(--off-white); font-weight: 500; }
+
+  /* ── RESULTS ── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+
+  .result-stat {
+    text-align: center;
+    padding: 40px 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(0,200,122,0.1);
+    border-radius: 4px;
+    transition: transform 0.3s;
+  }
+
+  .result-stat:hover { transform: translateY(-6px); }
+
+  .result-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .result-label {
+    font-size: 13px;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* ── BENEFITS ── */
+  .benefits-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+  }
+
+  .benefit-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,200,122,0.1);
+    border: 1px solid rgba(0,200,122,0.3);
+    padding: 16px 24px;
+    border-radius: 100px;
+    font-size: 15px;
+    color: var(--off-white);
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .benefit-pill:hover { background: rgba(0,200,122,0.2); }
+
+  .benefit-pill span { font-size: 20px; }
+
+  /* ── MISSION/VISION ── */
+  .mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+  }
+
+  .mv-box {
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mv-box.mission { background: var(--green); color: var(--black); }
+  .mv-box.vision { background: rgba(255,255,255,0.04); border: 1px solid rgba(0,200,122,0.2); }
+
+  .mv-box h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .mv-box.mission h3 { color: var(--black); }
+  .mv-box.vision h3 { color: var(--green); }
+
+  .mv-box p { font-size: 16px; line-height: 1.7; }
+  .mv-box.mission p { color: rgba(0,0,0,0.75); }
+
+  .mv-bg-text {
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 130px;
+    opacity: 0.07;
+    line-height: 1;
+    color: var(--black);
+    user-select: none;
+  }
+
+  .mv-box.vision .mv-bg-text { color: var(--green); opacity: 0.06; }
+
+  /* ── TEAM PAGE ── */
+  .team-page {
+    background: linear-gradient(180deg, var(--black) 0%, #0d1a14 100%);
+    padding: 100px 50px;
+    border-top: 1px solid rgba(0,200,122,0.1);
+  }
+
+  .team-inner { max-width: 1200px; margin: 0 auto; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .member-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(0,200,122,0.12);
+    padding: 36px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .member-card:hover {
+    border-color: var(--green);
+    transform: translateY(-6px);
+  }
+
+  .member-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--teal));
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--black);
+    letter-spacing: 1px;
+  }
+
+  .member-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--off-white);
+    line-height: 1.3;
+  }
+
+  .member-role {
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .instructor-card {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: rgba(0,200,122,0.06);
+    border: 1px solid rgba(0,200,122,0.25);
+    padding: 36px;
+    margin-top: 10px;
+  }
+
+  .instructor-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    color: var(--black);
+    flex-shrink: 0;
+  }
+
+  .instructor-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 4px;
+    color: var(--off-white);
+  }
+
+  .instructor-info p { font-size: 14px; color: var(--gray); }
+
+  .instructor-badge {
+    display: inline-block;
+    background: var(--green);
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  /* ── CONCLUSION ── */
+  .conclusion-bg {
+    background: linear-gradient(135deg, #0b1a12 0%, #091510 100%);
+    border-top: 1px solid rgba(0,200,122,0.1);
+  }
+
+  .conclusion-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .conclusion-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .c-bar {
+    height: 60px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-weight: 600;
+    font-size: 14px;
+    gap: 12px;
+  }
+
+  .c-bar span { font-size: 20px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060d0a;
+    border-top: 1px solid rgba(0,200,122,0.1);
+    padding: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--green);
+    letter-spacing: 3px;
+  }
+
+  .footer-meta { font-size: 12px; color: var(--gray); text-align: right; }
+  .footer-meta strong { color: var(--off-white); display: block; font-size: 14px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cover-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .cover-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .cover-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .cover-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .cover-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .cover { grid-template-columns: 1fr; }
+    .cover-right { padding: 50px; min-height: 50vh; }
+    .cover-left::after { display: none; }
+    .objectives-grid, .theory-list, .mv-grid, .conclusion-inner { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .steps-flow { flex-direction: column; }
+    .step::after { display: none; }
+    section { padding: 60px 24px; }
+    .nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .abstract-band { padding: 60px 24px; }
+    footer { padding: 40px 24px; }
+    .team-page { padding: 60px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
+    .instructor-card { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ PORTADA ══ -->
+<div class="cover" id="portada">
+  <div class="cover-left">
+    <div class="sena-badge">✦ SENA · Soacha · 2026</div>
+    <h1 class="cover-title">
+      Tecno<span>Revivir</span>
+    </h1>
+    <p class="cover-tagline">"Dale una segunda vida a tu computador."</p>
+    <p class="cover-issue">Mantenimiento de Equipos de Cómputo · Proyecto Productivo</p>
+  </div>
+
+  <div class="cover-right">
+    <div class="big-number">♻</div>
+
+    <svg class="cover-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="40" width="160" height="110" rx="8" fill="white"/>
+      <rect x="30" y="50" width="140" height="90" rx="4" fill="white" opacity=".5"/>
+      <rect x="80" y="155" width="40" height="15" fill="white"/>
+      <rect x="60" y="168" width="80" height="6" rx="3" fill="white"/>
+      <circle cx="100" cy="95" r="30" fill="white" opacity=".3"/>
+      <path d="M88 95 L100 83 L112 95 L100 107 Z" fill="white"/>
+    </svg>
+
+    <div class="cover-team">
+      <h3>✦ Integrantes</h3>
+      <div class="team-member"><div class="team-dot"></div><span class="team-name">Sergio Córdoba Castro</span></div>
+      <div class="team-member"><div class="team-dot"></div><span class="team-name">Dairy Paola Rojas Coronado</span></div>
+      <div class="team-member"><div class="team-dot"></div><span class="team-name">Juan Sebastián Duque Díaz</span></div>
+      <div class="team-member"><div class="team-dot"></div><span class="team-name">Jhonatan Davis Celis Peña</span></div>
+      <div class="instructor-line">
+        Instructor
+        <strong>Diego Javier Coecha León</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" onclick="document.getElementById('intro').scrollIntoView()">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="nav-logo">TecnoRevivir</div>
+  <ul class="nav-links">
+    <li><a href="#intro">Introducción</a></li>
+    <li><a href="#objetivos">Objetivos</a></li>
+    <li><a href="#marco">Marco Teórico</a></li>
+    <li><a href="#procedimiento">Procedimiento</a></li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+  </ul>
+</nav>
+
+<!-- ══ ABSTRACT ══ -->
+<div class="abstract-band">
+  <div class="abstract-inner">
+    <div class="section-label" style="justify-content:center;margin-bottom:20px;">Abstract</div>
+    <p>El proyecto TecnoRevivir tiene como objetivo recuperar y reutilizar computadores en desuso mediante el diagnóstico y aprovechamiento de componentes funcionales, reduciendo los residuos electrónicos y brindando equipos reacondicionados a bajo costo para mejorar el acceso a la tecnología.</p>
+  </div>
+</div>
+
+<!-- ══ INTRODUCCIÓN ══ -->
+<section id="intro">
+  <div class="section-label">01 · Introducción</div>
+  <h2 class="section-title">El problema de los <em>residuos tecnológicos</em></h2>
+  <p style="max-width:720px;">En la actualidad, muchas personas tienen computadores dañados o en desuso guardados en sus hogares. En muchos casos, estos equipos dejan de utilizarse por fallas en algunos de sus componentes, aunque otras piezas aún se encuentran en buen estado.</p>
+  <br>
+  <p style="max-width:720px;">Este proyecto propone recolectar partes de computadores dañados o en desuso para realizar un proceso de diagnóstico, reparación y reutilización de los componentes que aún funcionan. Con estas piezas recuperadas se podrán ensamblar computadores funcionales que posteriormente serán vendidos a un precio accesible, buscando reducir los residuos electrónicos, aprovechar los recursos tecnológicos existentes y ofrecer una alternativa económica para quienes necesitan un equipo funcional.</p>
+</section>
+
+<!-- ══ MISIÓN / VISIÓN ══ -->
+<div style="padding: 0 50px; max-width:1200px; margin:0 auto;">
+  <div class="mv-grid">
+    <div class="mv-box mission">
+      <div class="mv-bg-text">MISIÓN</div>
+      <h3>Misión</h3>
+      <p>Recuperar, reparar y reutilizar equipos de cómputo para reducir residuos electrónicos y facilitar el acceso a la tecnología en nuestra comunidad.</p>
+    </div>
+    <div class="mv-box vision">
+      <div class="mv-bg-text">VISIÓN</div>
+      <h3>Visión</h3>
+      <p>Ser un proyecto reconocido por su impacto en la reutilización tecnológica y el acceso a computadores a bajo costo, convirtiéndonos en referente de economía circular en la región.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OBJETIVOS ══ -->
+<section id="objetivos">
+  <div class="section-label">02 · Objetivos</div>
+  <h2 class="section-title">¿Qué buscamos <em>lograr</em>?</h2>
+  <p style="max-width:640px;">Recuperar y reutilizar componentes de computadores en desuso para ensamblar equipos funcionales y ofrecerlos a un precio accesible, contribuyendo a la reducción de residuos electrónicos.</p>
+
+  <div class="objectives-grid">
+    <div class="obj-card" data-num="01">
+      <div class="obj-icon">♻️</div>
+      <h4>Recolección</h4>
+      <p>Recolectar computadores dañados o componentes electrónicos en desuso en hogares y empresas de la región.</p>
+    </div>
+    <div class="obj-card" data-num="02">
+      <div class="obj-icon">🔍</div>
+      <h4>Diagnóstico</h4>
+      <p>Diagnosticar el estado de cada componente para identificar cuáles funcionan y cuáles deben ser descartados.</p>
+    </div>
+    <div class="obj-card" data-num="03">
+      <div class="obj-icon">🔧</div>
+      <h4>Reparación</h4>
+      <p>Reparar o recuperar piezas que aún puedan ser utilizadas, aplicando técnicas de mantenimiento especializado.</p>
+    </div>
+    <div class="obj-card" data-num="04">
+      <div class="obj-icon">💻</div>
+      <h4>Ensamblaje y Venta</h4>
+      <p>Ensamblar computadores funcionales, instalar software básico y ofrecerlos reacondicionados a precio justo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ METODOLOGÍA ══ -->
+<div class="method-bg" id="metodologia">
+  <section style="max-width:1200px;">
+    <div class="section-label">03 · Metodología</div>
+    <h2 class="section-title">Proceso <em>paso a paso</em></h2>
+
+    <div class="steps-flow">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📦</div>
+        <h5>Recolección</h5>
+        <p>Acopio de equipos en desuso</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">🗂️</div>
+        <h5>Clasificación</h5>
+        <p>Separación por tipo y estado</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">🔬</div>
+        <h5>Diagnóstico</h5>
+        <p>Evaluación de componentes</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">🔧</div>
+        <h5>Reparación</h5>
+        <p>Limpieza y mantenimiento</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-icon">⚙️</div>
+        <h5>Ensamblaje</h5>
+        <p>Armado del equipo final</p>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-icon">💿</div>
+        <h5>Software</h5>
+        <p>Instalación del SO</p>
+      </div>
+      <div class="step">
+        <div class="step-num">07</div>
+        <div class="step-icon">🛒</div>
+        <h5>Venta</h5>
+        <p>Entrega a precio accesible</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══ MARCO TEÓRICO ══ -->
+<section id="marco">
+  <div class="section-label">04 · Marco Teórico</div>
+  <h2 class="section-title">Fundamentos <em>científicos</em></h2>
+
+  <div class="theory-list">
+    <div class="theory-item">
+      <h4>🌍 Residuos Electrónicos (RAEE)</h4>
+      <p>Dispositivos al final de su vida útil que contienen materiales valiosos (cobre, aluminio, oro) pero también sustancias peligrosas como plomo y mercurio. Su gestión adecuada es crítica para el medio ambiente.</p>
+    </div>
+    <div class="theory-item">
+      <h4>⚡ Clasificación de Componentes</h4>
+      <p>Los componentes se clasifican en activos (transistores, circuitos integrados), pasivos (resistencias, condensadores) y electromecánicos (relés, interruptores), cada uno con potencial de reutilización.</p>
+    </div>
+    <div class="theory-item">
+      <h4>♻️ Reutilización Electrónica</h4>
+      <p>Volver a utilizar componentes que aún funcionan alarga su vida útil, reduce la fabricación de nuevos dispositivos y disminuye el consumo de recursos naturales y energía.</p>
+    </div>
+    <div class="theory-item">
+      <h4>🏭 Reciclaje Electrónico</h4>
+      <p>Proceso que incluye recolección, clasificación, desmontaje y procesamiento para recuperar metales (cobre, oro, plata), plásticos y vidrio de los dispositivos desechados.</p>
+    </div>
+    <div class="theory-item">
+      <h4>⚠️ Impacto Ambiental</h4>
+      <p>Los RAEE mal gestionados contaminan suelo, agua y aire. El plomo afecta el sistema nervioso, el mercurio contamina fuentes hídricas y el cadmio puede provocar enfermedades renales.</p>
+    </div>
+    <div class="theory-item">
+      <h4>🔄 Economía Circular</h4>
+      <p>Modelo que promueve diseño duradero, reparación en lugar de reemplazo y reciclaje eficiente de materiales, aplicado al contexto electrónico para un desarrollo tecnológico sostenible.</p>
+    </div>
+    <div class="theory-item">
+      <h4>⚖️ Normatividad RAEE</h4>
+      <p>Colombia ha implementado programas de recolección de RAEE y políticas de responsabilidad extendida del productor, obligando a los fabricantes a gestionar los residuos de sus productos.</p>
+    </div>
+    <div class="theory-item">
+      <h4>📚 Educación Ambiental</h4>
+      <p>Promover la conciencia ambiental incentiva separar residuos electrónicos, llevarlos a puntos de recolección y reutilizar componentes en proyectos, cultivando una cultura sostenible.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCEDIMIENTO ══ -->
+<section id="procedimiento" style="background: rgba(0,200,122,0.03); border-top: 1px solid rgba(0,200,122,0.08);">
+  <div class="section-label">05 · Procedimiento</div>
+  <h2 class="section-title">Diagnóstico y <em>reparación</em> del equipo</h2>
+  <p style="max-width:700px; margin-bottom: 30px;">Se inició con una inspección general del equipo que presentaba lentitud en el arranque, bajo desempeño y sobrecalentamiento. Se determinó realizar una intervención con actualización de hardware utilizando componentes donados.</p>
+
+  <h3 style="font-family:'Playfair Display',serif; color:var(--off-white); margin-bottom: 20px; font-size:22px;">Problemas identificados y soluciones aplicadas</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Problema identificado</th>
+          <th>Causa probable</th>
+          <th>Solución aplicada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lentitud en el arranque</td>
+          <td>Memoria RAM insuficiente</td>
+          <td>Ampliación de memoria RAM</td>
+        </tr>
+        <tr>
+          <td>Bajo rendimiento general</td>
+          <td>Procesador de baja capacidad</td>
+          <td>Cambio de procesador</td>
+        </tr>
+        <tr>
+          <td>Sobrecalentamiento</td>
+          <td>Pasta térmica deteriorada y suciedad interna</td>
+          <td>Limpieza interna y cambio de pasta térmica</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top: 60px;">
+    <h3 style="font-family:'Playfair Display',serif; color:var(--off-white); margin-bottom: 20px; font-size:22px;">Comparación de rendimiento</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Aspecto evaluado</th>
+            <th>Antes de la intervención</th>
+            <th>Después de la intervención</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tiempo de arranque</td>
+            <td style="color:#e05555;">Lento</td>
+            <td style="color:var(--green);">Rápido</td>
+          </tr>
+          <tr>
+            <td>Ejecución de programas</td>
+            <td style="color:#e05555;">Demorada</td>
+            <td style="color:var(--green);">Fluida</td>
+          </tr>
+          <tr>
+            <td>Capacidad multitarea</td>
+            <td style="color:#e05555;">Limitada</td>
+            <td style="color:var(--green);">Mejorada</td>
+          </tr>
+          <tr>
+            <td>Temperatura del equipo</td>
+            <td style="color:#e05555;">Elevada</td>
+            <td style="color:var(--green);">Estable</td>
+          </tr>
+          <tr>
+            <td>Estabilidad del sistema</td>
+            <td style="color:#e05555;">Baja</td>
+            <td style="color:var(--green);">Alta</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BENEFICIOS ══ -->
+<section>
+  <div class="section-label">06 · Beneficios</div>
+  <h2 class="section-title">Impacto del <em>proyecto</em></h2>
+  <div class="benefits-row">
+    <div class="benefit-pill"><span>♻️</span> Reducción de residuos electrónicos</div>
+    <div class="benefit-pill"><span>💰</span> Acceso a tecnología económica</div>
+    <div class="benefit-pill"><span>🔩</span> Reutilización de recursos</div>
+    <div class="benefit-pill"><span>🌱</span> Promoción del reciclaje tecnológico</div>
+    <div class="benefit-pill"><span>🎓</span> Formación técnica aplicada</div>
+    <div class="benefit-pill"><span>🌍</span> Menor impacto ambiental</div>
+  </div>
+</section>
+
+<!-- ══ RESULTADOS ══ -->
+<section id="resultados" style="background: rgba(0,200,122,0.03); border-top: 1px solid rgba(0,200,122,0.08);">
+  <div class="section-label">07 · Resultados Esperados</div>
+  <h2 class="section-title">¿Qué <em>logramos</em>?</h2>
+  <div class="results-grid">
+    <div class="result-stat">
+      <div class="result-num">↑</div>
+      <div class="result-label">Componentes funcionales recuperados</div>
+    </div>
+    <div class="result-stat">
+      <div class="result-num">0</div>
+      <div class="result-label">Residuos electrónicos generados innecesariamente</div>
+    </div>
+    <div class="result-stat">
+      <div class="result-num">✓</div>
+      <div class="result-label">Equipos completamente operativos ensamblados</div>
+    </div>
+  </div>
+  <br><br>
+  <p style="max-width:700px;">Al finalizar el proyecto se habrá demostrado que, mediante la reutilización de componentes y la aplicación de mantenimiento adecuado, es posible recuperar equipos de cómputo y prolongar su vida útil a un costo accesible para la comunidad.</p>
+</section>
+
+<!-- ══ CONCLUSIÓN ══ -->
+<div class="conclusion-bg">
+  <div class="conclusion-inner">
+    <div>
+      <div class="section-label">08 · Conclusión</div>
+      <h2 class="section-title" style="font-size: clamp(32px,4vw,52px);">Una segunda vida para la <em>tecnología</em></h2>
+      <p>El proyecto TecnoRevivir demuestra que es posible aprovechar equipos en desuso para crear soluciones tecnológicas funcionales. Además de reducir el impacto ambiental, permite generar oportunidades de acceso a herramientas digitales para más personas.</p>
+      <br>
+      <p>Este proyecto representa no solo una solución técnica, sino un modelo de economía circular aplicado a la realidad colombiana, donde muchas familias aún no tienen acceso a computadores.</p>
+    </div>
+    <div class="conclusion-visual">
+      <div class="c-bar" style="background: var(--green); color: var(--black); width: 100%;">
+        <span>♻️</span> Sostenibilidad Ambiental
+      </div>
+      <div class="c-bar" style="background: rgba(0,200,122,0.2); width: 88%;">
+        <span>💻</span> Acceso Tecnológico
+      </div>
+      <div class="c-bar" style="background: rgba(0,200,122,0.12); width: 75%;">
+        <span>🎓</span> Formación Técnica
+      </div>
+      <div class="c-bar" style="background: rgba(0,200,122,0.07); width: 65%;">
+        <span>🌱</span> Impacto Social
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EQUIPO ══ -->
+<div class="team-page" id="equipo">
+  <div class="team-inner">
+    <div class="section-label">09 · Equipo</div>
+    <h2 class="section-title">Las personas detrás de <em>TecnoRevivir</em></h2>
+
+    <div class="team-grid">
+      <div class="member-card">
+        <div class="member-avatar">SC</div>
+        <div class="member-name">Sergio Córdoba Castro</div>
+        <div class="member-role">Integrante</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">DR</div>
+        <div class="member-name">Dairy Paola Rojas Coronado</div>
+        <div class="member-role">Integrante</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">JD</div>
+        <div class="member-name">Juan Sebastián Duque Díaz</div>
+        <div class="member-role">Integrante</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">JC</div>
+        <div class="member-name">Jhonatan Davis Celis Peña</div>
+        <div class="member-role">Integrante</div>
+      </div>
+
+      <div class="instructor-card">
+        <div class="instructor-avatar">DL</div>
+        <div class="instructor-info">
+          <div class="instructor-badge">Instructor</div>
+          <h4>Diego Javier Coecha León</h4>
+          <p>Mantenimiento de Equipos de Cómputo · SENA Soacha · 2026</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div>
+    <div class="footer-logo">TecnoRevivir</div>
+    <p style="font-size:12px; color: var(--gray); margin-top: 6px;">Recuperación y Reutilización de Computadores</p>
+  </div>
+  <div class="footer-meta">
+    <strong>SENA · Soacha · 2026</strong>
+    Mantenimiento de Equipos de Cómputo<br>
+    Proyecto Productivo
+  </div>
+</footer>
+
+</body>
